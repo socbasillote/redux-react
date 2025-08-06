@@ -6,7 +6,6 @@ function Timer() {
     const {isRunning, timeLeft, mode, autoSwitch, pomodoroCount} = useSelector((state) => state.timer);
     const dispatch = useDispatch();
 
-    const longBreakInterval = 0;
 
     useEffect(() => {
         let interval = null;
