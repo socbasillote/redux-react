@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { logout } from '../auth/authSlice';
+import { loadUsers } from '../counter/counterSlice';
 
 function Leaderboard() {
   const navigate = useNavigate();
@@ -13,8 +14,11 @@ function Leaderboard() {
   useEffect(() => {
     if (!currentUser) {
       navigate('/login');
+    } else {
+      const savedCounts = JSON.parse(localStorage.getItem('userCounts')) || {};
+      dispatch(loadUsers(savedCounts));
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, navigate, dispatch]);
 
   const sortedUsers = Object.entries(userCounts).sort(([, aCount], [, bCount]) => bCount - aCount);
 

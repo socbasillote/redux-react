@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState = {
     users: {}
 };
@@ -22,10 +23,13 @@ const counterSlice = createSlice({
         },
         setAllUsers: (state, action) => {
             state.users = action.payload; 
+        },
+        loadUsers(state, action) {
+            state.users = action.payload || {};
         }
     }
 })
 
-export const { increment, setUserCount, setAllUsers } = counterSlice.actions;
+export const { increment, setUserCount, setAllUsers, loadUsers } = counterSlice.actions;
 export default counterSlice.reducer;
 

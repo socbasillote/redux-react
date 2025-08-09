@@ -2,8 +2,10 @@ import { increment } from "../features/counter/counterSlice";
 
 
 const saveCountsMiddleware = (store) => (next) => (action) => {
+    console.log('Middleware: Dispatching', action);
     const result = next(action);
 
+    console.log('Middleware: Next state', store.getState());
     if (increment.match(action)) {
         const state = store.getState();
         const { currentUser } = state.auth;
