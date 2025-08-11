@@ -1,7 +1,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-  todos: [],
+  todos: JSON.parse(localStorage.getItem('todosState')) || [],
   filter: "all",
 };
 
@@ -10,13 +10,17 @@ const todosSlice = createSlice({
   initialState,
   reducers: {
     loadTodos(state, action) {
-      return {
-        ...state,
-        todos: action.payload,
-      };
+
+        state.todos = action.payload.todos || [];
+        state.filter = action.payload.filter || 'all'
+
+
     },
     addTodo: {
       reducer(state, action) {
+        if (!Array.isArray(state.todos)) {
+          state.todos = [];
+        }
         state.todos.push(action.payload);
       },
       prepare(text, userId) {
